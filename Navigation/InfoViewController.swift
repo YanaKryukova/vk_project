@@ -15,13 +15,15 @@ class InfoViewController: UIViewController {
         view.backgroundColor = .magenta
         title = "Info"
         
-        let alertButton = UIButton(type: .system)
-        alertButton.frame = CGRect(x: 120, y: 120, width: 150, height: 30)
-        alertButton.backgroundColor = .systemRed
-        alertButton.setTitle("Alert", for: .normal)
-        
-        alertButton.addTarget(self, action: #selector(alertAction), for: .touchUpInside)
-        view.addSubview(alertButton)
+        let _: UIButton = {
+            let alertButton = UIButton()
+            alertButton.frame = CGRect(x: 120, y: 120, width: 150, height: 30)
+            alertButton.backgroundColor = .systemRed
+            alertButton.setTitle("Alert", for: .normal)
+            alertButton.addTarget(self, action: #selector(alertAction), for: .touchUpInside)
+            view.addSubview(alertButton)
+            return alertButton
+        }()
     }
     
     @objc func alertAction(){

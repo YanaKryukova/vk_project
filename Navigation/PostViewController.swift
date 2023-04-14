@@ -16,8 +16,14 @@ class PostViewController: UIViewController {
         view.backgroundColor = .white
         title = "Post"
         
-        let myButton = UIBarButtonItem(title: "Info", style: .plain, target: self, action:#selector(showInfoViewController))
-        navigationItem.rightBarButtonItem = myButton
+        //let myButton = UIBarButtonItem(title: "Info", style: .plain, target: self, action:#selector(showInfoViewController))
+        //navigationItem.rightBarButtonItem = myButton
+        let myBarButton: UIBarButtonItem = {
+            let myButton = UIBarButtonItem(title: "Info", style: .plain, target: self, action:#selector(showInfoViewController))
+            return myButton
+        }()
+        
+        navigationItem.rightBarButtonItem = myBarButton
     }
     
     @objc func showInfoViewController(){
