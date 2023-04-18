@@ -10,7 +10,7 @@ import UIKit
 
 class ProfileHeaderView: UIView {
     
-    private let catView: UIImageView = {
+    private let avatarImageView: UIImageView = {
         let catImage = UIImageView()
         catImage.layer.borderColor = UIColor.white.cgColor
         catImage.layer.borderWidth = 3
@@ -23,7 +23,7 @@ class ProfileHeaderView: UIView {
         
     }()
     
-    private let labelView: UILabel = {
+    private let fullNameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 18)
         label.textColor = .black
@@ -34,7 +34,7 @@ class ProfileHeaderView: UIView {
         
     }()
     
-    private let secondLabelView: UILabel = {
+    private let statusLabel: UILabel = {
         let text = UILabel()
         text.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         text.textColor = .gray
@@ -45,7 +45,7 @@ class ProfileHeaderView: UIView {
         
     }()
     
-    private let buttonView: UIButton = {
+    private let setStatusButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Show status", for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
@@ -62,53 +62,56 @@ class ProfileHeaderView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupAnyViews()
+        addSubviews()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        setupAnyViews()
+        addSubviews()
     }
     
-    
-    func setupAnyViews(){
-        addSubview(catView)
-        addSubview(labelView)
-        addSubview(secondLabelView)
-        addSubview(buttonView)
-        
-    }
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        setConstrains()
         
-        buttonView.addTarget(self, action: #selector(tapButton), for: .touchUpInside)
+        setStatusButton.addTarget(self, action: #selector(tapButton), for: .touchUpInside)
+    }
+    
+    private func addSubviews(){
+        addSubview(avatarImageView)
+        addSubview(fullNameLabel)
+        addSubview(statusLabel)
+        addSubview(setStatusButton)
+        
+    }
+    private func setConstrains() {
         
         NSLayoutConstraint.activate([
-            catView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            catView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
-            catView.widthAnchor.constraint(equalToConstant: 100),
-            catView.heightAnchor.constraint(equalToConstant: 100),
+            avatarImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            avatarImageView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
+            avatarImageView.widthAnchor.constraint(equalToConstant: 100),
+            avatarImageView.heightAnchor.constraint(equalToConstant: 100),
             
-            labelView.leadingAnchor.constraint(equalTo: catView.trailingAnchor, constant: 20),
-            labelView.topAnchor.constraint(equalTo: topAnchor, constant: 27),
-            labelView.widthAnchor.constraint(equalToConstant: 150),
+            fullNameLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 20),
+            fullNameLabel.topAnchor.constraint(equalTo: topAnchor, constant: 27),
+            fullNameLabel.widthAnchor.constraint(equalToConstant: 150),
             
-            buttonView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            buttonView.topAnchor.constraint(equalTo: catView.bottomAnchor, constant: 16),
-            buttonView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            buttonView.heightAnchor.constraint(equalToConstant: 50),
+            setStatusButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            setStatusButton.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 16),
+            setStatusButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            setStatusButton.heightAnchor.constraint(equalToConstant: 50),
             
-            secondLabelView.leadingAnchor.constraint(equalTo: catView.trailingAnchor, constant: 20),
-            secondLabelView.topAnchor.constraint(equalTo: labelView.bottomAnchor, constant: 34 ),
-            secondLabelView.widthAnchor.constraint(equalToConstant: 150)
+            statusLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 20),
+            statusLabel.topAnchor.constraint(equalTo: fullNameLabel.bottomAnchor, constant: 34 ),
+            statusLabel.widthAnchor.constraint(equalToConstant: 150)
             
         ])
     }
         
         @objc func tapButton() {
-            if secondLabelView.text != nil {
-                print(secondLabelView.text ?? "no data")
+            if statusLabel.text != nil {
+                print(statusLabel.text ?? "no data")
             }
         }
 }
