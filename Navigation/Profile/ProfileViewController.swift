@@ -16,10 +16,6 @@ class ProfileViewController: UIViewController {
         view.backgroundColor = .lightGray
         title = "Profile"
         view.addSubview(profileHeaderView)
-    }
-    
-    override func viewWillLayoutSubviews(){
-        super.viewWillLayoutSubviews()
         
         profileHeaderView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([

@@ -18,6 +18,7 @@ class ProfileHeaderView: UIView {
         catImage.image = UIImage(named: "grumpy")
         catImage.contentMode = .scaleAspectFill
         catImage.clipsToBounds = true
+        catImage.translatesAutoresizingMaskIntoConstraints = false
         return catImage
         
     }()
@@ -28,6 +29,7 @@ class ProfileHeaderView: UIView {
         label.textColor = .black
         label.text = "Grumpy Cat"
         label.clipsToBounds = true
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
         
     }()
@@ -38,6 +40,7 @@ class ProfileHeaderView: UIView {
         text.textColor = .gray
         text.text = "Just being grumpy..."
         text.clipsToBounds = true
+        text.translatesAutoresizingMaskIntoConstraints = false
         return text
         
     }()
@@ -52,6 +55,7 @@ class ProfileHeaderView: UIView {
         button.layer.shadowOffset = .init(width: 4, height: 4)
         button.layer.shadowOpacity = 0.7
         button.layer.shadowRadius = 4
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
@@ -79,11 +83,6 @@ class ProfileHeaderView: UIView {
         super.layoutSubviews()
         
         buttonView.addTarget(self, action: #selector(tapButton), for: .touchUpInside)
-        
-        catView.translatesAutoresizingMaskIntoConstraints = false
-        labelView.translatesAutoresizingMaskIntoConstraints = false
-        secondLabelView.translatesAutoresizingMaskIntoConstraints = false
-        buttonView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             catView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
