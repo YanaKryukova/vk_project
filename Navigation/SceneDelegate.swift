@@ -18,7 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         let window = UIWindow(windowScene: windowScene)
-        let profileViewController = ProfileViewController()
+        let profileViewController = LogInViewController()
         
         let profileNavigationViewController = UINavigationController(rootViewController: profileViewController)
         profileNavigationViewController.tabBarItem.title = "Profile"
@@ -28,6 +28,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let feedNavigationViewController = UINavigationController(rootViewController: feedViewController)
         feedNavigationViewController.tabBarItem.title = "Feed"
         feedNavigationViewController.tabBarItem.image = UIImage(systemName: "infinity.circle.fill")
+        
         
         let tabViewController = UITabBarController()
         tabViewController.viewControllers = [profileNavigationViewController, feedNavigationViewController]
