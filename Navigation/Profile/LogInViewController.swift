@@ -27,7 +27,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         return contentView
     }()
     
-    private let colorSet = UIColor(red: 0x48 / 255.0, green: 0x85 / 255.0, blue: 0xCC / 255.0, alpha: 1.0)
+    private let colorSet = UIColor(named: "ColorSet")
     
     private let line: UIView = {
         let line = UIView()
@@ -61,20 +61,20 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     }()
     
     private lazy var passwordForm: UITextField = {
-           let passwordForm = UITextField()
-           passwordForm.placeholder = "Password"
-           passwordForm.textColor = .black
-           passwordForm.font = .systemFont(ofSize: 16, weight: .medium)
-           passwordForm.tintColor = colorSet
-           passwordForm.autocapitalizationType = .none
-           passwordForm.textAlignment = .left
-           passwordForm.leftViewMode = .always
-           passwordForm.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
-           passwordForm.translatesAutoresizingMaskIntoConstraints = false
-           passwordForm.isSecureTextEntry = true
-           passwordForm.delegate = self
-           return passwordForm
-       }()
+        let passwordForm = UITextField()
+        passwordForm.placeholder = "Password"
+        passwordForm.textColor = .black
+        passwordForm.font = .systemFont(ofSize: 16, weight: .medium)
+        passwordForm.tintColor = colorSet
+        passwordForm.autocapitalizationType = .none
+        passwordForm.textAlignment = .left
+        passwordForm.leftViewMode = .always
+        passwordForm.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
+        passwordForm.translatesAutoresizingMaskIntoConstraints = false
+        passwordForm.isSecureTextEntry = true
+        passwordForm.delegate = self
+        return passwordForm
+    }()
     
     
     private let stackTextField: UIStackView = {

@@ -22,6 +22,7 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .lightGray
         title = "Profile"
+        navigationItem.hidesBackButton = true
         addSubviews()
         setConstrains()
     }
