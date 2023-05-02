@@ -17,6 +17,7 @@
 		97842F4C29E352FE004F27A5 /* PostStructure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97842F4B29E352FE004F27A5 /* PostStructure.swift */; };
 		97842F4E29E4AF79004F27A5 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97842F4D29E4AF79004F27A5 /* InfoViewController.swift */; };
 		97F981FB29EEB70E00EE2D84 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97F981FA29EEB70E00EE2D84 /* ProfileHeaderView.swift */; };
+		97FBE6C429F1D094008D4070 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FBE6C329F1D094008D4070 /* LogInViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		97842F4B29E352FE004F27A5 /* PostStructure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostStructure.swift; sourceTree = "<group>"; };
 		97842F4D29E4AF79004F27A5 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		97F981FA29EEB70E00EE2D84 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
+		97FBE6C329F1D094008D4070 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,8 +118,9 @@
 		97F981F729EB13F700EE2D84 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				97F981FA29EEB70E00EE2D84 /* ProfileHeaderView.swift */,
 				9756D7BF29DF501F00E97E0D /* ProfileViewController.swift */,
+				97FBE6C329F1D094008D4070 /* LogInViewController.swift */,
+				97F981FA29EEB70E00EE2D84 /* ProfileHeaderView.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -254,6 +257,7 @@
 			files = (
 				9756D79029DC5F7700E97E0D /* AppDelegate.swift in Sources */,
 				97842F4C29E352FE004F27A5 /* PostStructure.swift in Sources */,
+				97FBE6C429F1D094008D4070 /* LogInViewController.swift in Sources */,
 				9756D7C229DF503500E97E0D /* FeedViewController.swift in Sources */,
 				97842F4E29E4AF79004F27A5 /* InfoViewController.swift in Sources */,
 				97F981FB29EEB70E00EE2D84 /* ProfileHeaderView.swift in Sources */,
