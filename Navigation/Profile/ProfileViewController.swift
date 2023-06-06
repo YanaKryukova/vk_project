@@ -8,46 +8,86 @@
 import UIKit
 
 class ProfileViewController: UIViewController {
-    
-    private let profileHeaderView = ProfileHeaderView()
-    
-    private let emptyButton: UIButton = {
-        let emptyButton = UIButton(type: .system)
-        emptyButton.setTitle("empty button title", for: .normal)
-        emptyButton.backgroundColor = .blue
-        return emptyButton
-    }()
 
+    // MARK: - Properties
+    
+    private var publications = Post.makePost()
+    
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView(frame: .zero, style: .grouped)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.register(PostTableViewCell.self, forCellReuseIdentifier: PostTableViewCell.identifier)
+        tableView.dataSource = self
+        tableView.delegate = self
+        return tableView
+    }()
+    
+   //MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .lightGray
-        title = "Profile"
-        navigationItem.hidesBackButton = true
+        view.backgroundColor = .white
         addSubviews()
-        setConstrains()
+        setConstraints()
     }
-       
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
+    }
+    
     private func addSubviews(){
-        view.addSubview(profileHeaderView)
-        view.addSubview(emptyButton)
+        view.addSubview(tableView)
     }
     
-    
-    private func setConstrains(){
+    private func setConstraints(){
         
-        profileHeaderView.translatesAutoresizingMaskIntoConstraints = false
-        emptyButton.translatesAutoresizingMaskIntoConstraints = false
-            
+        let safeAreaGuide = view.safeAreaLayoutGuide
+        
         NSLayoutConstraint.activate([
-            profileHeaderView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            profileHeaderView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            profileHeaderView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            profileHeaderView.heightAnchor.constraint(equalToConstant: 200),
-        
-            emptyButton.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            emptyButton.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            emptyButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.topAnchor.constraint(equalTo: safeAreaGuide.topAnchor),
+            tableView.bottomAnchor.constraint(equalTo: safeAreaGuide.bottomAnchor)
         ])
+        
+    }
+}
+
+
+//MARK: - Extensions
+        
+extension ProfileViewController: UITableViewDelegate {
+}
+
+extension ProfileViewController: UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        1
     }
     
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+       publications.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: PostTableViewCell.identifier, for: indexPath) as! PostTableViewCell
+        cell.setupSell(model: publications[indexPath.row])
+        return cell
+        
+    }
+    
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if section == 0 {
+            return ProfileHeaderView()
+        } else {
+            return nil
+        }
+    }
 }
+        
+
+
