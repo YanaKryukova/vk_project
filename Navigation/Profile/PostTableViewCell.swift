@@ -13,6 +13,7 @@ class PostTableViewCell: UITableViewCell {
     
     // MARK: - Properties
     
+    
     var cellView: UIView = {
         let cellView = UIView()
         cellView.backgroundColor = .white
