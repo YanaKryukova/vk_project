@@ -45,6 +45,9 @@ class ProfileViewController: UIViewController {
         view.addSubview(tableView)
     }
     
+    private func setupGestures(){
+   }
+    
     private func setConstraints(){
         
         NSLayoutConstraint.activate([
@@ -102,6 +105,13 @@ extension ProfileViewController: UITableViewDataSource {
         if indexPath.section == 0 {
             navigationController?.pushViewController(PhotosViewController(), animated: true)
         }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.section == 0 {
+            return 150
+        }
+        return tableView.rowHeight
     }
 }
         
