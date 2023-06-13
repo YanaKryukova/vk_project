@@ -24,7 +24,7 @@ class PhotosTableViewCell: UITableViewCell {
         photosImage.translatesAutoresizingMaskIntoConstraints = false
         photosImage.contentMode = .scaleAspectFit
         photosImage.backgroundColor = .black
-        photosImage.layer.cornerRadius = 6
+        photosImage.layer.cornerRadius = 8
         return photosImage
     }()
     
@@ -72,12 +72,12 @@ class PhotosTableViewCell: UITableViewCell {
     
     private func addSubviews(){
         contentView.addSubview(photosCollectionView)
-        contentView.addSubview(arrowImage)
-        contentView.addSubview(headerLabel)
         contentView.addSubview(photoView1)
         contentView.addSubview(photoView2)
         contentView.addSubview(photoView3)
         contentView.addSubview(photoView4)
+        contentView.addSubview(headerLabel)
+        contentView.addSubview(arrowImage)
     }
     
     private func setConstraints(){
