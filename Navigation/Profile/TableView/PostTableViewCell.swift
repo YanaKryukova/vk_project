@@ -107,9 +107,6 @@ class PostTableViewCell: UITableViewCell {
     
     private func setConstraints(){
         
-        let imageInset: CGFloat = 15
-        let textInset: CGFloat = 20
-        
         NSLayoutConstraint.activate([
             
             cellView.topAnchor.constraint(equalTo: contentView.topAnchor),
@@ -118,29 +115,38 @@ class PostTableViewCell: UITableViewCell {
             cellView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             
             authorText.topAnchor.constraint(equalTo: cellView.topAnchor, constant: 15),
-            authorText.leadingAnchor.constraint(equalTo: cellView.leadingAnchor, constant: textInset),
+            authorText.leadingAnchor.constraint(equalTo: cellView.leadingAnchor, constant: Metric.textInset),
             authorText.trailingAnchor.constraint(equalTo: cellView.trailingAnchor, constant: 200),
             authorText.heightAnchor.constraint(equalToConstant: 30),
             
-            postImage.topAnchor.constraint(equalTo: authorText.bottomAnchor, constant: imageInset),
+            postImage.topAnchor.constraint(equalTo: authorText.bottomAnchor, constant: Metric.imageInset),
             postImage.leadingAnchor.constraint(equalTo: cellView.leadingAnchor),
             postImage.trailingAnchor.constraint(equalTo: cellView.trailingAnchor),
             postImage.heightAnchor.constraint(equalToConstant: 200),
             
             descriptionText.topAnchor.constraint(equalTo: postImage.bottomAnchor),
-            descriptionText.leadingAnchor.constraint(equalTo: cellView.leadingAnchor, constant: textInset),
+            descriptionText.leadingAnchor.constraint(equalTo: cellView.leadingAnchor, constant: Metric.textInset),
             descriptionText.trailingAnchor.constraint(equalTo: cellView.trailingAnchor),
-            descriptionText.heightAnchor.constraint(equalToConstant: 50),
+            descriptionText.heightAnchor.constraint(equalToConstant: Metric.heightAnchor),
             
             likes.topAnchor.constraint(equalTo: descriptionText.bottomAnchor),
-            likes.leadingAnchor.constraint(equalTo: cellView.leadingAnchor, constant: textInset),
-            likes.heightAnchor.constraint(equalToConstant: 50),
+            likes.leadingAnchor.constraint(equalTo: cellView.leadingAnchor, constant: Metric.textInset),
+            likes.heightAnchor.constraint(equalToConstant: Metric.heightAnchor),
             likes.bottomAnchor.constraint(equalTo: cellView.bottomAnchor),
             
             views.topAnchor.constraint(equalTo: descriptionText.bottomAnchor),
-            views.trailingAnchor.constraint(equalTo: cellView.trailingAnchor, constant: -textInset),
-            views.heightAnchor.constraint(equalToConstant: 50),
+            views.trailingAnchor.constraint(equalTo: cellView.trailingAnchor, constant: -Metric.textInset),
+            views.heightAnchor.constraint(equalToConstant: Metric.heightAnchor),
             views.bottomAnchor.constraint(equalTo: likes.bottomAnchor)
         ])
     }
+}
+
+extension PostTableViewCell {
+    enum Metric {
+        static let heightAnchor: CGFloat = 50
+        static let imageInset: CGFloat = 15
+        static let textInset: CGFloat = 20
+    }
+    
 }
