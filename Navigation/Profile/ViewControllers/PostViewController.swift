@@ -9,7 +9,11 @@ import UIKit
 
 class PostViewController: UIViewController {
     
+    //MARK: - Properties
+    
     public var someInfo: String?
+    
+    //MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +27,8 @@ class PostViewController: UIViewController {
         
         navigationItem.rightBarButtonItem = myBarButton
     }
+    
+    //MARK: - Func
     
     @objc func showInfoViewController(){
         let infoViewController = InfoViewController()

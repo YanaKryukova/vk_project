@@ -8,11 +8,17 @@
 
 import UIKit
 
+
+protocol PostTableViewCellDelegate: AnyObject {
+    func upgradeLikes(for cell: PostTableViewCell)
+}
+
 class PostTableViewCell: UITableViewCell {
-    
+
     
     // MARK: - Properties
     
+    var tapLikes: (() -> Void)? = nil
     
     var cellView: UIView = {
         let cellView = UIView()
@@ -47,11 +53,13 @@ class PostTableViewCell: UITableViewCell {
         return descriptionText
     }()
     
-    var likes: UILabel = {
+    private lazy var likes: UILabel = {
         let likes = UILabel()
         likes.translatesAutoresizingMaskIntoConstraints = false
         likes.font = .systemFont(ofSize: 16, weight: .regular)
         likes.textColor = .black
+        likes.isUserInteractionEnabled = true
+        likes.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(upgradeLikes)))
         return likes
     }()
     
@@ -70,6 +78,7 @@ class PostTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         addSubviews()
         setConstraints()
+        
     }
     
     required init?(coder: NSCoder) {
@@ -77,7 +86,7 @@ class PostTableViewCell: UITableViewCell {
     }
     
     
-    // MARK: - Methods
+    // MARK: - Func
     
     override func prepareForReuse(){
         super.prepareForReuse()
@@ -88,7 +97,7 @@ class PostTableViewCell: UITableViewCell {
         views.text = nil
     }
     
-    func setupSell(model: Post) {
+    func setupCell(model: Post) {
         postImage.image = UIImage(named: model.image)
         authorText.text = model.author
         descriptionText.text = model.description
@@ -102,6 +111,10 @@ class PostTableViewCell: UITableViewCell {
         }
     }
     
+    @objc func upgradeLikes() {
+        if let action = self.tapLikes { action() }
+            }
+
     
     // MARK: - Constraints
     
@@ -122,7 +135,7 @@ class PostTableViewCell: UITableViewCell {
             postImage.topAnchor.constraint(equalTo: authorText.bottomAnchor, constant: Metric.imageInset),
             postImage.leadingAnchor.constraint(equalTo: cellView.leadingAnchor),
             postImage.trailingAnchor.constraint(equalTo: cellView.trailingAnchor),
-            postImage.heightAnchor.constraint(equalToConstant: 200),
+            postImage.heightAnchor.constraint(equalToConstant: 180),
             
             descriptionText.topAnchor.constraint(equalTo: postImage.bottomAnchor),
             descriptionText.leadingAnchor.constraint(equalTo: cellView.leadingAnchor, constant: Metric.textInset),
@@ -137,10 +150,13 @@ class PostTableViewCell: UITableViewCell {
             views.topAnchor.constraint(equalTo: descriptionText.bottomAnchor),
             views.trailingAnchor.constraint(equalTo: cellView.trailingAnchor, constant: -Metric.textInset),
             views.heightAnchor.constraint(equalToConstant: Metric.heightAnchor),
-            views.bottomAnchor.constraint(equalTo: likes.bottomAnchor)
+            views.bottomAnchor.constraint(equalTo: cellView.bottomAnchor)
         ])
     }
+    
 }
+
+    //MARK: - Extension
 
 extension PostTableViewCell {
     enum Metric {
@@ -150,3 +166,9 @@ extension PostTableViewCell {
     }
     
 }
+
+
+
+
+
+

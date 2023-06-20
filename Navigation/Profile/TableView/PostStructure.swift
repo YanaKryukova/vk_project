@@ -15,6 +15,7 @@ struct Post {
     var image: String
     var likes: Int
     var views: Int
+    var isLiked = false
     
     static func makePost() -> [Post] {
         var post = [Post]()
@@ -23,7 +24,6 @@ struct Post {
         post.append(Post(author: "Grumpy", description: "just a random photo", image: "pub5", likes: 30, views: 50))
         post.append(Post(author: "Grumpy&HatBrand", description: "Look at my fantastic hat", image: "pub2", likes: 70, views: 100))
         post.append(Post(author: "Grumpy", description: "lookin grumpy as usual", image: "pub3", likes: 49, views: 100))
-        
         return post
     }
 }

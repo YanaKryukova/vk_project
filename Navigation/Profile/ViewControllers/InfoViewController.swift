@@ -6,19 +6,18 @@
 //
 
 import UIKit
-import SwiftUI
 
 class InfoViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .magenta
+        view.backgroundColor = .systemGray5
         title = "Info"
         
         let _: UIButton = {
             let alertButton = UIButton()
             alertButton.frame = CGRect(x: 120, y: 120, width: 150, height: 30)
-            alertButton.backgroundColor = .systemRed
+            alertButton.backgroundColor = .systemGray
             alertButton.setTitle("Alert", for: .normal)
             alertButton.addTarget(self, action: #selector(alertAction), for: .touchUpInside)
             view.addSubview(alertButton)

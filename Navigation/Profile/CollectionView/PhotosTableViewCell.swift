@@ -80,12 +80,14 @@ class PhotosTableViewCell: UITableViewCell {
         contentView.addSubview(arrowImage)
     }
     
+    //MARK: - Layout
+    
     private func setConstraints(){
         
         let photoSize: CGFloat = contentView.frame.width / 4
-        let photoInset: CGFloat = 12
+        let photoInset: CGFloat = 14
         let labelInset: CGFloat = 12
-        let photoLeftInset: CGFloat = 9
+        let photoLeftInset: CGFloat = 12
         let arrowInset: CGFloat = 30
         
         NSLayoutConstraint.activate([
@@ -125,16 +127,12 @@ class PhotosTableViewCell: UITableViewCell {
             photoView4.bottomAnchor.constraint(equalTo: photosCollectionView.bottomAnchor, constant: -photoInset),
             photoView4.widthAnchor.constraint(equalToConstant: photoSize),
             photoView4.heightAnchor.constraint(equalToConstant: photoSize),
-            
-            
-            
         ])
     }
 }
 
 extension PhotosTableViewCell {
     func createImageView(nameImageView: String, nameImage: String) -> UIImageView {
-        
         let nameImageView: UIImageView = {
             let imageView = UIImageView()
             imageView.layer.borderColor = UIColor.white.cgColor

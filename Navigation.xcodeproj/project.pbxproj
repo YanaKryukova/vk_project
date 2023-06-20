@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		971A73B22A3A5EA3000C165E /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 971A73B12A3A5EA3000C165E /* DetailViewController.swift */; };
 		97453B652A30AE04004C8615 /* PhotosTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97453B642A30AE04004C8615 /* PhotosTableViewCell.swift */; };
 		97453B672A30AEB8004C8615 /* PhotosStructure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97453B662A30AEB8004C8615 /* PhotosStructure.swift */; };
 		97453B692A31F836004C8615 /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97453B682A31F836004C8615 /* PhotosViewController.swift */; };
@@ -44,6 +45,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		971A73B12A3A5EA3000C165E /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		97453B642A30AE04004C8615 /* PhotosTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosTableViewCell.swift; sourceTree = "<group>"; };
 		97453B662A30AEB8004C8615 /* PhotosStructure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosStructure.swift; sourceTree = "<group>"; };
 		97453B682A31F836004C8615 /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
@@ -135,7 +137,6 @@
 			isa = PBXGroup;
 			children = (
 				97F981F729EB13F700EE2D84 /* Profile */,
-				97D60C7A2A2F492000086B42 /* IUView + Extension.swift */,
 				9756D79829DC5F7900E97E0D /* Assets.xcassets */,
 				9756D79A29DC5F7900E97E0D /* LaunchScreen.storyboard */,
 				9756D79D29DC5F7900E97E0D /* Info.plist */,
@@ -150,6 +151,7 @@
 				9756D7C129DF503500E97E0D /* FeedViewController.swift */,
 				97842F4929E3506F004F27A5 /* PostViewController.swift */,
 				97842F4D29E4AF79004F27A5 /* InfoViewController.swift */,
+				971A73B12A3A5EA3000C165E /* DetailViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -168,6 +170,7 @@
 			children = (
 				9756D79129DC5F7700E97E0D /* SceneDelegate.swift */,
 				9756D78F29DC5F7700E97E0D /* AppDelegate.swift */,
+				97D60C7A2A2F492000086B42 /* IUView + Extension.swift */,
 				979180FB2A38CDFA00D18DAB /* ViewControllers */,
 				979180FC2A38CE5E00D18DAB /* ProfileView */,
 				97453B6D2A31FBED004C8615 /* TableView */,
@@ -313,6 +316,7 @@
 				97453B672A30AEB8004C8615 /* PhotosStructure.swift in Sources */,
 				97D60C7B2A2F492000086B42 /* IUView + Extension.swift in Sources */,
 				9756D7C229DF503500E97E0D /* FeedViewController.swift in Sources */,
+				971A73B22A3A5EA3000C165E /* DetailViewController.swift in Sources */,
 				97842F4E29E4AF79004F27A5 /* InfoViewController.swift in Sources */,
 				97F981FB29EEB70E00EE2D84 /* ProfileHeaderView.swift in Sources */,
 				9756D7C029DF501F00E97E0D /* ProfileViewController.swift in Sources */,

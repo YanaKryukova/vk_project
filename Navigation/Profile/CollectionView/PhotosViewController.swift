@@ -13,6 +13,8 @@ class PhotosViewController: UIViewController {
     
     private var photos = Photos.makePost()
     
+    private var initialImageRect: CGRect = .zero
+    
     private lazy var photoCollection: UICollectionView = {
         let viewLayout = UICollectionViewFlowLayout()
         viewLayout.scrollDirection = .vertical
@@ -21,7 +23,30 @@ class PhotosViewController: UIViewController {
         photoCollection.register(PhotosCollectionViewCell.self, forCellWithReuseIdentifier: PhotosCollectionViewCell.identifier)
         photoCollection.delegate = self
         photoCollection.dataSource = self
+        photoCollection.isUserInteractionEnabled = true
         return photoCollection
+    }()
+    
+    private let blackView: UIView = {
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
+        view.backgroundColor = .black
+        view.alpha = 0.5
+        return view
+    }()
+    
+    private lazy var crossButton: UIButton = {
+        let button = UIButton(frame: CGRect(x: UIScreen.main.bounds.width - 66, y: 110, width: 50, height: 50))
+        button.setImage(UIImage(systemName: "xmark"), for: .normal)
+        button.tintColor = .black
+        button.backgroundColor = .white
+        button.addTarget(self, action: #selector(crossButtonAction), for: .touchUpInside)
+        return button
+    }()
+    
+    private let animatingImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.clipsToBounds = true
+        return imageView
     }()
     
     //MARK: - Lifecycle
@@ -36,10 +61,11 @@ class PhotosViewController: UIViewController {
         title = "Photo Gallery"
     }
     
-    //MARK: - Methods
+    //MARK: - Func
     
     private func addSubviews(){
         view.addSubview(photoCollection)
+        
     }
     
     private func setConstraints(){
@@ -52,7 +78,45 @@ class PhotosViewController: UIViewController {
             photoCollection.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
+    
+    @objc private func crossButtonAction() {
+        crossButton.removeFromSuperview()
+        blackView.removeFromSuperview()
+        animateImageToInitial(rect: initialImageRect)
+    }
+    
+    private func animateImage(_ image: UIImage?, imageFrame: CGRect) {
+        view.addSubview(blackView)
+        view.addSubview(crossButton)
+        view.addSubview(animatingImageView)
+        animatingImageView.image = image
+        animatingImageView.alpha = 1.0
+        animatingImageView.frame = CGRect(x: imageFrame.origin.x,
+                                          y: imageFrame.origin.y,
+                                          width: imageFrame.width,
+                                          height: imageFrame.height)
+        animatingImageView.center = view.center
+        
+        UIView.animate(withDuration: 0.6) {
+            self.animatingImageView.frame.size = CGSize(width: UIScreen.main.bounds.width,
+                                                        height: UIScreen.main.bounds.width)
+            self.animatingImageView.center = self.view.center
+        }
+    }
+    
+    private func animateImageToInitial(rect: CGRect) {
+        UIView.animate(withDuration: 0.6) {
+            self.animatingImageView.frame = rect
+            self.animatingImageView.center = self.view.center
+            self.animatingImageView.layer.cornerRadius = 0
+        } completion: { _ in
+            self.animatingImageView.removeFromSuperview()
+        }
+    }
 }
+
+    //MARK: - Extensions
+
 extension PhotosViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -61,6 +125,7 @@ extension PhotosViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotosCollectionViewCell.identifier, for: indexPath) as! PhotosCollectionViewCell
+        cell.delegate = self
         cell.setupCell(model: photos[indexPath.row])
         return cell
     }
@@ -85,3 +150,16 @@ extension PhotosViewController: UICollectionViewDelegateFlowLayout {
         inset
     }
 }
+
+extension PhotosViewController: CustomCellDelegate {
+    func didTapImageInCell(_ image: UIImage?, frameImage: CGRect) {
+        initialImageRect = CGRect(x: frameImage.origin.x,
+                                  y: frameImage.origin.y + frameImage.origin.y,
+                                  width: frameImage.width,
+                                  height: frameImage.height)
+        animateImage(image, imageFrame: initialImageRect)
+    }
+}
+    
+    
+
