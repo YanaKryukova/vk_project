@@ -24,8 +24,6 @@ class ProfileViewController: UIViewController {
         return tableView
     }()
     
-    
-    
    //MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -37,34 +35,36 @@ class ProfileViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        tableView.reloadData()
         navigationController?.navigationBar.isHidden = true
-    }
+        }
     
     private func addSubviews(){
         view.addSubview(tableView)
     }
     
-    private func setupGestures(){
-   }
+    //MARK: - Constraints
     
     private func setConstraints(){
-        
         NSLayoutConstraint.activate([
-            
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
-        
     }
 }
 
 
-//MARK: - Extensions
-        
+    //MARK: - Extensions
+
 extension ProfileViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            publications.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
 }
 
 extension ProfileViewController: UITableViewDataSource {
@@ -77,7 +77,7 @@ extension ProfileViewController: UITableViewDataSource {
         if section == 0 {
             return 1
         } else {
-          return  publications.count
+            return  publications.count
         }
     }
     
@@ -87,11 +87,17 @@ extension ProfileViewController: UITableViewDataSource {
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: PostTableViewCell.identifier, for: indexPath) as! PostTableViewCell
-            cell.setupSell(model: publications[indexPath.row])
+            cell.setupCell(model: publications[indexPath.row])
+            cell.tapLikes = {
+                if !self.publications[indexPath.row].isLiked {
+                    self.publications[indexPath.row].likes += 1
+                    self.publications[indexPath.row].isLiked = true
+                    self.tableView.reloadData()
+                }
+            }
             return cell
         }
     }
-    
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 0 {
@@ -99,11 +105,21 @@ extension ProfileViewController: UITableViewDataSource {
         } else {
             return nil
         }
+        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
             navigationController?.pushViewController(PhotosViewController(), animated: true)
+        } else {
+            let detailVC = DetailViewController()
+            detailVC.setupVC(model: publications[indexPath.row], indexPath: indexPath)
+            detailVC.delegate = self
+            detailVC.moreViews = {
+                self.publications[indexPath.row].views += 1
+                self.tableView.reloadData()
+            }
+            navigationController?.pushViewController(detailVC, animated: true)
         }
     }
     
@@ -114,6 +130,23 @@ extension ProfileViewController: UITableViewDataSource {
         return tableView.rowHeight
     }
 }
-        
+
+
+extension ProfileViewController: PostTableViewCellDelegate {
+    func upgradeLikes(for cell: PostTableViewCell){
+        if let indexPath = tableView.indexPath(for: cell){
+            _ = publications[indexPath.row]
+            publications[indexPath.row].likes += 1
+            tableView.reloadData()
+        }
+    }
+}
+
+
+
+
+
+
+
 
 

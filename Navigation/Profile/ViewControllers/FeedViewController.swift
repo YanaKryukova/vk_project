@@ -8,6 +8,7 @@
 import UIKit
 
 class FeedViewController: UIViewController {
+  
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +24,7 @@ class FeedViewController: UIViewController {
             let button = UIButton()
             button.frame = CGRect(origin: CGPoint(x: 120, y: 120), size: CGSize(width: 150, height: 30))
             button.setTitle("Post", for: .normal)
-            button.backgroundColor = .systemBlue
+            button.backgroundColor = .systemGray2
             
             view.addSubview(button)
             button.addTarget(self, action: #selector(post), for: .touchUpInside)
@@ -32,10 +33,8 @@ class FeedViewController: UIViewController {
     }
     
     @objc func post() {
-        
         let postViewController = PostViewController()
         postViewController.someInfo = "some info"
-        
         navigationController?.pushViewController(postViewController, animated: true)
     }
 }

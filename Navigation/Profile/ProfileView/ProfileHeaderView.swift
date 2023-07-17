@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProfileHeaderView: UIView {
+class ProfileHeaderView: UIView {    
     
     //MARK: - Properties
     
@@ -61,20 +61,21 @@ class ProfileHeaderView: UIView {
         label.font = UIFont.boldSystemFont(ofSize: 18)
         label.textColor = .black
         label.text = "Grumpy Cat"
-        //label.clipsToBounds = true
+        label.clipsToBounds = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
         
     }()
     
-    private let statusLabel: UILabel = {
-        let text = UILabel()
-        text.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-        text.textColor = .gray
-        text.text = "Just being grumpy..."
-        text.clipsToBounds = true
-        text.translatesAutoresizingMaskIntoConstraints = false
-        return text
+    lazy var titleStatus: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        label.textColor = .gray
+        label.text = "Just being grumpy..."
+        label.clipsToBounds = true
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.isUserInteractionEnabled = true
+        return label
         
     }()
     
@@ -86,13 +87,15 @@ class ProfileHeaderView: UIView {
         textField.layer.cornerRadius = 12
         textField.textColor = .black
         textField.textAlignment = .left
+        textField.leftViewMode = .always
         textField.font = .systemFont(ofSize: 15, weight: .regular)
-        textField.placeholder = " Set your status..."
+        textField.placeholder = "Set your status..."
         textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.isUserInteractionEnabled = true
         return textField
     }()
     
-    private let setStatusButton: UIButton = {
+    private lazy var setStatusButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Set status", for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
@@ -103,6 +106,8 @@ class ProfileHeaderView: UIView {
         button.layer.shadowOpacity = 0.7
         button.layer.shadowRadius = 4
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.isUserInteractionEnabled = true
+        button.addTarget(self, action: #selector(tapButton), for: .touchUpInside)
         return button
     }()
     
@@ -114,39 +119,33 @@ class ProfileHeaderView: UIView {
     private var heightAvatarView = NSLayoutConstraint()
     private var heightTransparent = NSLayoutConstraint()
     
-    
     //MARK: - Init
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubviews()
-        statusButton()
         setConstraints()
+        
+        statusTextField.delegate = self
+        
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
     
-    
     //MARK: - Func
     
     private func addSubviews(){
         
         addSubview(fullNameLabel)
-        addSubview(statusLabel)
+        addSubview(titleStatus)
         addSubview(setStatusButton)
         addSubview(statusTextField)
         addSubview(avatarAnimationView)
         addSubview(transparent)
         addSubview(avatarImageView)
         addSubview(closeAnimation)
-        
-        
-    }
-    
-    private func statusButton(){
-        setStatusButton.addTarget(self, action: #selector(tapButton), for: .touchUpInside)
     }
     
     //MARK: - Constraints
@@ -179,17 +178,17 @@ class ProfileHeaderView: UIView {
             
             
             fullNameLabel.widthAnchor.constraint(equalToConstant: 100),
-            fullNameLabel.topAnchor.constraint(equalTo: avatarAnimationView.topAnchor ,constant: 0),
+            fullNameLabel.topAnchor.constraint(equalTo: avatarAnimationView.topAnchor),
             fullNameLabel.leadingAnchor.constraint(equalTo: avatarAnimationView.trailingAnchor,constant: 20),
             fullNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor,constant: -16),
             
-            statusLabel.topAnchor.constraint(equalTo: fullNameLabel.bottomAnchor,constant: 10),
-            statusLabel.leadingAnchor.constraint(equalTo: fullNameLabel.leadingAnchor),
-            statusLabel.trailingAnchor.constraint(equalTo: fullNameLabel.trailingAnchor),
+            titleStatus.topAnchor.constraint(equalTo: fullNameLabel.bottomAnchor,constant: 10),
+            titleStatus.leadingAnchor.constraint(equalTo: fullNameLabel.leadingAnchor),
+            titleStatus.trailingAnchor.constraint(equalTo: fullNameLabel.trailingAnchor),
             
-            statusTextField.widthAnchor.constraint(equalTo: statusLabel.widthAnchor),
+            statusTextField.widthAnchor.constraint(equalTo: titleStatus.widthAnchor),
             statusTextField.heightAnchor.constraint(equalToConstant: 50),
-            statusTextField.topAnchor.constraint(equalTo: statusLabel.bottomAnchor,constant: 15),
+            statusTextField.topAnchor.constraint(equalTo: titleStatus.bottomAnchor,constant: 15),
             statusTextField.leadingAnchor.constraint(equalTo: fullNameLabel.leadingAnchor),
             statusTextField.trailingAnchor.constraint(equalTo: fullNameLabel.trailingAnchor),
             
@@ -204,9 +203,12 @@ class ProfileHeaderView: UIView {
     }
     //MARK: - Actions
     
-    @objc func tapButton() {
-        if statusLabel.text != nil {
-            print(statusLabel.text ?? "no data")
+     @objc func tapButton() {
+        if statusTextField.text == "" {
+            statusTextField.shake()
+        } else {
+            titleStatus.text = statusTextField.text
+            statusTextField.text = ""
         }
     }
     
@@ -224,10 +226,8 @@ class ProfileHeaderView: UIView {
                 self.heightAvatarView.constant = UIScreen.main.bounds.height - 220
                 self.heightTransparent.constant = UIScreen.main.bounds.height
                 self.avatarImageView.layer.cornerRadius = 0
-                
                 self.avatarAnimationView.layoutIfNeeded()
             }
-            
             UIView.addKeyframe(withRelativeStartTime: 0.6, relativeDuration: 0.8) {
                 self.closeAnimation.layer.opacity = 1
                 self.transparent.layer.opacity = 0.3
@@ -246,8 +246,6 @@ class ProfileHeaderView: UIView {
             }
             UIView.addKeyframe(withRelativeStartTime: 0.4, relativeDuration: 0.5) {
                 self.transparent.isHidden = true
-                
-                
                 self.heightTransparent.constant = UIScreen.main.bounds.height
                 self.widthAvatarView.constant = 95
                 self.leadingAvatarView.constant = 16
@@ -257,5 +255,13 @@ class ProfileHeaderView: UIView {
             }
         }
     }
-    
 }
+
+extension ProfileHeaderView: UITextFieldDelegate {
+    public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        let textToPrint = titleStatus.text
+        print("\(String(describing: textToPrint))")
+        return true
+    }
+}
+
